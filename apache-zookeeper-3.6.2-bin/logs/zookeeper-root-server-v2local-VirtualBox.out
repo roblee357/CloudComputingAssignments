@@ -1,0 +1,13 @@
+2020-09-11 14:46:12,507 [myid:] - INFO  [main:QuorumPeerConfig@174] - Reading configuration from: /media/sf_CS5287_Principles_of_Cloud_Computing/Programming Assignment 1/apache-zookeeper-3.6.2-bin/bin/../conf/zoo.cfg
+2020-09-11 14:46:12,534 [myid:] - ERROR [main:QuorumPeerMain@98] - Invalid config, exiting abnormally
+org.apache.zookeeper.server.quorum.QuorumPeerConfig$ConfigException: Error processing /media/sf_CS5287_Principles_of_Cloud_Computing/Programming Assignment 1/apache-zookeeper-3.6.2-bin/bin/../conf/zoo.cfg
+	at org.apache.zookeeper.server.quorum.QuorumPeerConfig.parse(QuorumPeerConfig.java:198)
+	at org.apache.zookeeper.server.quorum.QuorumPeerMain.initializeAndRun(QuorumPeerMain.java:124)
+	at org.apache.zookeeper.server.quorum.QuorumPeerMain.main(QuorumPeerMain.java:90)
+Caused by: java.lang.IllegalArgumentException: dataDir is not set
+	at org.apache.zookeeper.server.quorum.QuorumPeerConfig.parseProperties(QuorumPeerConfig.java:444)
+	at org.apache.zookeeper.server.quorum.QuorumPeerConfig.parse(QuorumPeerConfig.java:194)
+	... 2 more
+Invalid config, exiting abnormally
+2020-09-11 14:46:12,544 [myid:] - INFO  [main:ZKAuditProvider@42] - ZooKeeper audit is disabled.
+2020-09-11 14:46:12,551 [myid:] - ERROR [main:ServiceUtils@42] - Exiting JVM with code 2
