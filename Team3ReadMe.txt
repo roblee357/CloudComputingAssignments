@@ -55,8 +55,8 @@ INSTALL Kafka
                 			      14BBAFA6 FEE2E79F 43D04C55 0EEA471F 508B08EA 34B4316E
 			                      A1E52999 6066FD9B 93FCF912 F41F6165
 
-??	Move the file into the /usr/bin location:
-??		sudo mv kafka_2.13-2.6.0.tgz /usr/bin
+	Move the file into the /usr/bin location:
+		sudo mv kafka_2.13-2.6.0.tgz /usr/bin
 		sudo tar -xvzf kafka_2.13-2.6.0.tgz kafka_2.13-2.6.0
 		cd kafka_2.13-2.6.0/bin
 		
@@ -66,10 +66,8 @@ INSTALL Kafka
 Network Adapters https://www.nakivo.com/blog/virtualbox-network-setting-guide/			
 
 ## VM3 setup
-
-INSTALL Java jdk
-sudo apt update
-sudo apt install openjdk-11-jre-headless
+INSTALL couchDB on VM3:
+sudo snap install couchdb
 
 INSTALL PIP3 ON VM1:
 sudo apt-get install python3-pip
@@ -78,13 +76,11 @@ sudo python3 -m pip install kafka-python
 INSTALL Kafka-python
 pip3 install kafka-python
 
-INSTALL couchDB on VM3:
-sudo snap install couchdb
-
 Follow single node setup instructions and manually create these 3 databases:
-curl -X PUT http://127.0.0.1:5984/_users
-curl -X PUT http://127.0.0.1:5984/_replicator
-curl -X PUT http://127.0.0.1:5984/_global_changes
+
+curl -X PUT http://@127.0.0.1:5984/_users
+curl -X PUT http://@127.0.0.1:5984/_replicator
+curl -X PUT http://@127.0.0.1:5984/_global_changes
 
 Now edit the following lines in the config file.
 :/var/snap/couchdb/current/etc$ sudo nano local.ini
@@ -99,6 +95,14 @@ Save config file and REBOOT VM3
 Test welcome page by running:
 curl http://admin:Team3@127.0.0.1:5984
 
+## Open ports
+sudo ufw limit 5984 ## CouchDB
+sudo ufw limit 9092 ## Kafka
+sudo ufw limit 2181 ## ZooKeeper
 
+Start Message Broker
+	<kafka-version>bin/kafka-server-start.sh config/server.properties
 
+Start consumer
+python3 home/cc/consumer_VM3.py
 
