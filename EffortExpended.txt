@@ -71,28 +71,57 @@ INSTALL Java jdk
 sudo apt update
 sudo apt install openjdk-11-jre-headless
 
-INSTALL PIP3 ON VM1:
+INSTALL PIP3:
 sudo apt-get install python3-pip
 sudo python3 -m pip install kafka-python
 
-INSTALL Kafka-python
-pip3 install kafka-python
-
 INSTALL couchDB on VM3:
-sudo snap install couchdb
-
-Follow single node setup instructions and manually create these 3 databases:
-curl -X PUT http://127.0.0.1:5984/_users
-curl -X PUT http://127.0.0.1:5984/_replicator
-curl -X PUT http://127.0.0.1:5984/_global_changes
-
-Now edit the following lines in the config file.
-:/var/snap/couchdb/current/etc$ sudo nano local.ini
+sudo apt-get install -y gnupg ca-certificates
+echo "deb https://apache.bintray.com/couchdb-deb bionic main" \ | sudo tee /etc/apt/sources.list.d/couchdb.list
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys \ 8756C4F765C9AC3CB6B85D62379CE192D401AB61
+sudo apt update
+sudo apt install -y couchdb
+ │ For single-server configurations, select standalone mode. This will set
+ │ up CouchDB to run as a single server.
+ │
+ │ For clustered configuration, select clustered mode. This will prompt for
+ │ additional parameters required to configure CouchDB in a clustered
+ │ configuration.
+ │
+ │ If you prefer to configure CouchDB yourself, select none. You will then
+ │ need to edit /opt/couchdb/etc/vm.args and /opt/couchdb/etc/local.d/*.ini
+ │ yourself. Be aware that this will bypass *all* configuration steps,
+ │ including setup of a CouchDB admin user - leaving CouchDB in "admin
+ │ party" mode.
+### Navigate to the /opt/couchdb/etc/local.ini and open it to edit
+##EDIT THE FOLLOWING IN THE local.ini file
+[chttpd]
 port = 5984
 bind_address = 0.0.0.0
-
 [admins]
 admin = Team3
+
+sudo service couchdb start
+cc@team3-vm3:~$ sudo ufw enable
+Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
+Firewall is active and enabled on system startup
+cc@team3-vm3:~$ sudo ufw limit 9092
+Rule added
+Rule added (v6)
+cc@team3-vm3:~$ sudo ufw limit 5984
+Rule added
+Rule added (v6)
+##Create Databases VM3
+utilizations_mike
+utilizations_nida
+utilizations_rob
+curl -X PUT http://admin:Team3@127.0.0.1:5984/utilizations_mike
+curl -X PUT http://admin:Team3@127.0.0.1:5984/utilizations_nida
+curl -X PUT http://admin:Team3@127.0.0.1:5984/utilizations_rob
+curl -X GET http://admin:Team3@127.0.0.1:5984/_all_dbs
+curl -X GET http://admin:Team3@127.0.0.1:5984/_utils
+
+
 
 Save config file and REBOOT VM3
 

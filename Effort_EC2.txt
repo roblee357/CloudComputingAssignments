@@ -1,0 +1,21 @@
+VM2 
+Create instance and connect per AWS instructions
+
+Open Port 9092:
+	sudo ufw enable
+	sudo ufw allow 9092
+
+sudo apt update
+sudo apt install default-jre
+curl "https://downloads.apache.org/kafka/2.6.0/kafka_2.13-2.6.0.tgz" -o ~/kafka_2.13-2.6.0.tgz
+
+	Check the download SHA512 hash equals: (keys found at https://
+		gpg --print-md SHA512 kafka_2.13-2.6.0.tgz
+			kafka_2.13-2.6.0.tgz: D884E4DF 7D85B4FF F54CA9CD 987811C5 8506AD78 71B9ED71
+                			      14BBAFA6 FEE2E79F 43D04C55 0EEA471F 508B08EA 34B4316E
+			                      A1E52999 6066FD9B 93FCF912 F41F6165
+sudo tar -xvzf kafka_2.13-2.6.0.tgz kafka_2.13-2.6.0
+Edit config/server.properties:
+
+
+

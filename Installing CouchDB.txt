@@ -1,0 +1,27 @@
+# instructions from
+# https://docs.couchdb.org/en/stable/install/unix.html#installing
+
+# Dependancies
+#
+# Erlang OTP (19.x, 20.x >= 21.3.8.5, 21.x >= 21.2.3, 22.x >= 22.0.5)
+apt-get install erlang
+# ICU
+apt-get install clang
+# OpenSSL
+apt install build-essential checkinstall zlib1g-dev -y
+# Mozilla SpiderMonkey (1.8.5)
+apt install libmozjs-52-0 libmozjs-52-dev  
+# GNU make $ GNU Compiler Collection
+apt-get install build-essential
+# libcurl (probably already installed)
+apt-get install libcurl4 libcurl4-openssl-dev -y
+# help2man
+sudo apt-get install -y help2man
+# python spinx
+pip install Sphinx
+
+#Install couchDB
+sudo apt-get --no-install-recommends -y install \
+    build-essential pkg-config erlang \
+    libicu-dev libmozjs185-dev libcurl4-openssl-dev
+
